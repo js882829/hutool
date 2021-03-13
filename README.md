@@ -30,8 +30,8 @@
 	<a target="_blank" href="https://gitter.im/hutool/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge">
 		<img src="https://badges.gitter.im/hutool/Lobby.svg" />
 	</a>
-	<a target="_blank" href='https://gitee.com/loolly/hutool/stargazers'>
-		<img src='https://gitee.com/loolly/hutool/badge/star.svg?theme=gvp' alt='star'/>
+	<a target="_blank" href='https://gitee.com/dromara/hutool/stargazers'>
+		<img src='https://gitee.com/dromara/hutool/badge/star.svg?theme=gvp' alt='star'/>
 	</a>
 	<a target="_blank" href='https://github.com/looly/hutool'>
 		<img src="https://img.shields.io/github/stars/looly/hutool.svg?style=social" alt="github star"/>
@@ -108,7 +108,7 @@ Hutool的存在就是为了减少代码搜索成本，避免网络上参差不�
 
 [中文文档](https://www.hutool.cn/docs/)
 
-[参考API](https://apidoc.gitee.com/loolly/hutool/)
+[参考API](https://apidoc.gitee.com/dromara/hutool/)
 
 [视频介绍](https://www.bilibili.com/video/BV1bQ4y1M7d9?p=2)
 
@@ -123,21 +123,20 @@ Hutool的存在就是为了减少代码搜索成本，避免网络上参差不�
 <dependency>
     <groupId>cn.hutool</groupId>
     <artifactId>hutool-all</artifactId>
-    <version>5.5.9</version>
+    <version>5.6.0</version>
 </dependency>
 ```
 
 ### Gradle
 ```
-compile 'cn.hutool:hutool-all:5.5.9'
+compile 'cn.hutool:hutool-all:5.6.0'
 ```
 
 ### 非Maven项目
 
 点击以下任一链接，下载`hutool-all-X.X.X.jar`即可：
 
-- [Maven中央库1](https://repo1.maven.org/maven2/cn/hutool/hutool-all/5.5.9/)
-- [Maven中央库2](http://repo2.maven.org/maven2/cn/hutool/hutool-all/5.5.9/)
+- [Maven中央库](https://repo1.maven.org/maven2/cn/hutool/hutool-all/5.6.0/)
 
 > 注意
 > Hutool 5.x支持JDK8+，对Android平台没有测试，不能保证所有工具类或工具方法可用。
@@ -145,7 +144,7 @@ compile 'cn.hutool:hutool-all:5.5.9'
 
 ### 编译安装
 
-访问Hutool的Gitee主页：[https://gitee.com/loolly/hutool](https://gitee.com/loolly/hutool) 下载整个项目源码（v5-master或v5-dev分支都可）然后进入Hutool项目目录执行：
+访问Hutool的Gitee主页：[https://gitee.com/dromara/hutool](https://gitee.com/dromara/hutool) 下载整个项目源码（v5-master或v5-dev分支都可）然后进入Hutool项目目录执行：
 
 ```sh
 ./hutool.sh install
@@ -170,7 +169,7 @@ Hutool的源码分为两个分支，功能如下：
 
 提交问题反馈请说明正在使用的JDK版本呢、Hutool版本和相关依赖库版本。
 
-- [Gitee issue](https://gitee.com/loolly/hutool/issues)
+- [Gitee issue](https://gitee.com/dromara/hutool/issues)
 - [Github issue](https://github.com/looly/hutool/issues)
 
 
@@ -194,13 +193,17 @@ Hutool欢迎任何人为Hutool添砖加瓦，贡献代码，不过维护者是�
 
 -------------------------------------------------------------------------------
 
+## Star Hutool
+
+[![Giteye chart](https://chart.giteye.net/gitee/dromara/hutool/GMSL7VDA.png)](https://giteye.net/chart/GMSL7VDA)
+
 ## 捐赠
 
 如果你觉得Hutool不错，可以捐赠请维护者吃包辣条~，在此表示感谢^_^。
 
 点击以下链接，将页面拉到最下方点击“捐赠”即可。
 
-[前往捐赠](https://gitee.com/loolly/hutool)
+[前往捐赠](https://gitee.com/dromara/hutool)
 
 ## 公众号
 
