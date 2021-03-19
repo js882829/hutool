@@ -15,17 +15,17 @@
 	<a target="_blank" href="https://license.coscl.org.cn/MulanPSL2/">
 		<img src="https://img.shields.io/:license-MulanPSL2-blue.svg" />
 	</a>
-	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
+	<a target="_blank" href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html">
 		<img src="https://img.shields.io/badge/JDK-8+-green.svg" />
 	</a>
-	<a target="_blank" href="https://travis-ci.org/looly/hutool">
-		<img src="https://travis-ci.org/looly/hutool.svg?branch=v4-master" />
+	<a target="_blank" href="https://travis-ci.org/dromara/hutool">
+		<img src="https://travis-ci.org/dromara/hutool.svg?branch=v4-master" />
 	</a>
-	<a href="https://www.codacy.com/app/looly/hutool?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=looly/hutool&amp;utm_campaign=Badge_Grade">
+	<a href="https://www.codacy.com/app/dromara/hutool">
 		<img src="https://api.codacy.com/project/badge/Grade/3e1b8a70248c46579b7b0d01d60c6377"/>
 	</a>
-	<a href="https://codecov.io/gh/looly/hutool">
-		<img src="https://codecov.io/gh/looly/hutool/branch/v4-master/graph/badge.svg" />
+	<a href="https://codecov.io/gh/dromara/hutool">
+		<img src="https://codecov.io/gh/dromara/hutool/branch/v5-master/graph/badge.svg" />
 	</a>
 	<a target="_blank" href="https://gitter.im/hutool/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge">
 		<img src="https://badges.gitter.im/hutool/Lobby.svg" />
@@ -33,8 +33,8 @@
 	<a target="_blank" href='https://gitee.com/dromara/hutool/stargazers'>
 		<img src='https://gitee.com/dromara/hutool/badge/star.svg?theme=gvp' alt='star'/>
 	</a>
-	<a target="_blank" href='https://github.com/looly/hutool'>
-		<img src="https://img.shields.io/github/stars/looly/hutool.svg?style=social" alt="github star"/>
+	<a target="_blank" href='https://github.com/dromara/hutool'>
+		<img src="https://img.shields.io/github/stars/dromara/hutool.svg?style=social" alt="github star"/>
 	</a>
 	<a target="_blank" href='https://app.netlify.com/sites/hutool/deploys'>
 		<img src="https://api.netlify.com/api/v1/badges/7e0824f9-5f9a-4df0-89dd-b2fccfbeccb1/deploy-status" alt="netlify"/>
@@ -123,20 +123,20 @@ Hutool的存在就是为了减少代码搜索成本，避免网络上参差不�
 <dependency>
     <groupId>cn.hutool</groupId>
     <artifactId>hutool-all</artifactId>
-    <version>5.6.0</version>
+    <version>5.6.1</version>
 </dependency>
 ```
 
 ### Gradle
 ```
-compile 'cn.hutool:hutool-all:5.6.0'
+compile 'cn.hutool:hutool-all:5.6.1'
 ```
 
 ### 非Maven项目
 
 点击以下任一链接，下载`hutool-all-X.X.X.jar`即可：
 
-- [Maven中央库](https://repo1.maven.org/maven2/cn/hutool/hutool-all/5.6.0/)
+- [Maven中央库](https://repo1.maven.org/maven2/cn/hutool/hutool-all/5.6.1/)
 
 > 注意
 > Hutool 5.x支持JDK8+，对Android平台没有测试，不能保证所有工具类或工具方法可用。
@@ -170,7 +170,7 @@ Hutool的源码分为两个分支，功能如下：
 提交问题反馈请说明正在使用的JDK版本呢、Hutool版本和相关依赖库版本。
 
 - [Gitee issue](https://gitee.com/dromara/hutool/issues)
-- [Github issue](https://github.com/looly/hutool/issues)
+- [Github issue](https://github.com/dromara/hutool/issues)
 
 
 ### 贡献代码的步骤
@@ -207,6 +207,10 @@ Hutool欢迎任何人为Hutool添砖加瓦，贡献代码，不过维护者是�
 
 ## 公众号
 
-欢迎关注Hutool合作的公众号。
+#### 欢迎关注Hutool合作的公众号
 
 ![Java2B](https://cdn.jsdelivr.net/gh/looly/hutool-site/images/qrcode.jpg)
+
+#### Dromara开源组织公众号
+
+![Dromara](https://dromara.org/img/qrcode/qrcode_1.png)
