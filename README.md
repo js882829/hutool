@@ -18,11 +18,11 @@
 	<a target="_blank" href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html">
 		<img src="https://img.shields.io/badge/JDK-8+-green.svg" />
 	</a>
-	<a target="_blank" href="https://travis-ci.org/dromara/hutool">
-		<img src="https://travis-ci.org/dromara/hutool.svg?branch=v4-master" />
+	<a target="_blank" href="https://travis-ci.com/dromara/hutool">
+		<img src="https://travis-ci.com/dromara/hutool.svg?branch=v4-master" />
 	</a>
-	<a href="https://www.codacy.com/app/dromara/hutool">
-		<img src="https://api.codacy.com/project/badge/Grade/3e1b8a70248c46579b7b0d01d60c6377"/>
+	<a href="https://www.codacy.com/gh/dromara/hutool/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dromara/hutool&amp;utm_campaign=Badge_Grade">
+		<img src="https://app.codacy.com/project/badge/Grade/8a6897d9de7440dd9de8804c28d2871d"/>
 	</a>
 	<a href="https://codecov.io/gh/dromara/hutool">
 		<img src="https://codecov.io/gh/dromara/hutool/branch/v5-master/graph/badge.svg" />
@@ -123,20 +123,20 @@ Hutool的存在就是为了减少代码搜索成本，避免网络上参差不�
 <dependency>
     <groupId>cn.hutool</groupId>
     <artifactId>hutool-all</artifactId>
-    <version>5.6.1</version>
+    <version>5.6.2</version>
 </dependency>
 ```
 
 ### Gradle
 ```
-compile 'cn.hutool:hutool-all:5.6.1'
+compile 'cn.hutool:hutool-all:5.6.2'
 ```
 
 ### 非Maven项目
 
 点击以下任一链接，下载`hutool-all-X.X.X.jar`即可：
 
-- [Maven中央库](https://repo1.maven.org/maven2/cn/hutool/hutool-all/5.6.1/)
+- [Maven中央库](https://repo1.maven.org/maven2/cn/hutool/hutool-all/5.6.2/)
 
 > 注意
 > Hutool 5.x支持JDK8+，对Android平台没有测试，不能保证所有工具类或工具方法可用。

@@ -8,6 +8,7 @@ import cn.hutool.core.lang.func.Func1;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.CharUtil;
 import cn.hutool.core.util.CharsetUtil;
+import cn.hutool.core.util.DesensitizedUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
@@ -46,6 +47,12 @@ public class CharSequenceUtil {
 	 * 字符串常量：空格符 {@code " "}
 	 */
 	public static final String SPACE = " ";
+
+	/**
+	 * <p>The maximum size to which the padding constant(s) can expand.</p>
+	 * <p>填充常量可以最大填充的数量</p>
+	 */
+	private static final int PAD_LIMIT = 8192;
 
 	/**
 	 * <p>字符串是否为空白，空白的定义如下：</p>
@@ -2370,6 +2377,12 @@ public class CharSequenceUtil {
 	/**
 	 * 重复某个字符
 	 *
+	 * <pre>
+	 * StrUtil.repeat('e', 0)  = ""
+	 * StrUtil.repeat('e', 3)  = "eee"
+	 * StrUtil.repeat('e', -2) = ""
+	 * </pre>
+	 *
 	 * @param c     被重复的字符
 	 * @param count 重复的数目，如果小于等于0则返回""
 	 * @return 重复字符字符串
@@ -2960,16 +2973,18 @@ public class CharSequenceUtil {
 
 	/**
 	 * 补充字符串以满足指定长度，如果提供的字符串大于指定长度，截断之
+	 * 同：leftPad (org.apache.commons.lang3.leftPad)
 	 *
 	 * <pre>
 	 * StrUtil.padPre(null, *, *);//null
 	 * StrUtil.padPre("1", 3, "ABC");//"AB1"
 	 * StrUtil.padPre("123", 2, "ABC");//"12"
+	 * StrUtil.padPre("1039", -1, "0");//"103"
 	 * </pre>
 	 *
-	 * @param str       字符串
-	 * @param length    长度
-	 * @param padStr    补充的字符
+	 * @param str    字符串
+	 * @param length 长度
+	 * @param padStr 补充的字符
 	 * @return 补充后的字符串
 	 */
 	public static String padPre(CharSequence str, int length, CharSequence padStr) {
@@ -2989,6 +3004,7 @@ public class CharSequenceUtil {
 
 	/**
 	 * 补充字符串以满足最小长度，如果提供的字符串大于指定长度，截断之
+	 * 同：leftPad (org.apache.commons.lang3.leftPad)
 	 *
 	 * <pre>
 	 * StrUtil.padPre(null, *, *);//null
@@ -2996,9 +3012,9 @@ public class CharSequenceUtil {
 	 * StrUtil.padPre("123", 2, '0');//"12"
 	 * </pre>
 	 *
-	 * @param str       字符串
-	 * @param length    长度
-	 * @param padChar   补充的字符
+	 * @param str     字符串
+	 * @param length  长度
+	 * @param padChar 补充的字符
 	 * @return 补充后的字符串
 	 */
 	public static String padPre(CharSequence str, int length, char padChar) {
@@ -3023,11 +3039,12 @@ public class CharSequenceUtil {
 	 * StrUtil.padAfter(null, *, *);//null
 	 * StrUtil.padAfter("1", 3, '0');//"100"
 	 * StrUtil.padAfter("123", 2, '0');//"23"
+	 * StrUtil.padAfter("123", -1, '0')//"" 空串
 	 * </pre>
 	 *
-	 * @param str       字符串，如果为{@code null}，直接返回null
-	 * @param length    长度
-	 * @param padChar   补充的字符
+	 * @param str     字符串，如果为{@code null}，直接返回null
+	 * @param length  长度
+	 * @param padChar 补充的字符
 	 * @return 补充后的字符串
 	 */
 	public static String padAfter(CharSequence str, int length, char padChar) {
@@ -3054,9 +3071,9 @@ public class CharSequenceUtil {
 	 * StrUtil.padAfter("123", 2, "ABC");//"23"
 	 * </pre>
 	 *
-	 * @param str       字符串，如果为{@code null}，直接返回null
-	 * @param length    长度
-	 * @param padStr    补充的字符
+	 * @param str    字符串，如果为{@code null}，直接返回null
+	 * @param length 长度
+	 * @param padStr 补充的字符
 	 * @return 补充后的字符串
 	 * @since 4.3.2
 	 */
@@ -3596,6 +3613,17 @@ public class CharSequenceUtil {
 
 	/**
 	 * 替换指定字符串的指定区间内字符为"*"
+	 * 俗称：脱敏功能，后面其他功能，可以见：DesensitizedUtils(脱敏工具类)
+	 *
+	 * <pre>
+	 * StrUtil.hide(null,*,*)=null
+	 * StrUtil.hide("",0,*)=""
+	 * StrUtil.hide("jackduan@163.com",-1,4)   ****duan@163.com
+	 * StrUtil.hide("jackduan@163.com",2,3)    ja*kduan@163.com
+	 * StrUtil.hide("jackduan@163.com",3,2)    jackduan@163.com
+	 * StrUtil.hide("jackduan@163.com",16,16)  jackduan@163.com
+	 * StrUtil.hide("jackduan@163.com",16,17)  jackduan@163.com
+	 * </pre>
 	 *
 	 * @param str          字符串
 	 * @param startInclude 开始位置（包含）
@@ -3605,6 +3633,32 @@ public class CharSequenceUtil {
 	 */
 	public static String hide(CharSequence str, int startInclude, int endExclude) {
 		return replace(str, startInclude, endExclude, '*');
+	}
+
+	/**
+	 * 脱敏，使用默认的脱敏策略
+	 *
+	 * <pre>
+	 * StrUtil.desensitized("100", DesensitizedUtils.DesensitizedType.USER_ID)) =  "0"
+	 * StrUtil.desensitized("段正淳", DesensitizedUtils.DesensitizedType.CHINESE_NAME)) = "段**"
+	 * StrUtil.desensitized("51343620000320711X", DesensitizedUtils.DesensitizedType.ID_CARD)) = "5***************1X"
+	 * StrUtil.desensitized("09157518479", DesensitizedUtils.DesensitizedType.FIXED_PHONE)) = "0915*****79"
+	 * StrUtil.desensitized("18049531999", DesensitizedUtils.DesensitizedType.MOBILE_PHONE)) = "180****1999"
+	 * StrUtil.desensitized("北京市海淀区马连洼街道289号", DesensitizedUtils.DesensitizedType.ADDRESS)) = "北京市海淀区马********"
+	 * StrUtil.desensitized("duandazhi-jack@gmail.com.cn", DesensitizedUtils.DesensitizedType.EMAIL)) = "d*************@gmail.com.cn"
+	 * StrUtil.desensitized("1234567890", DesensitizedUtils.DesensitizedType.PASSWORD)) = "**********"
+	 * StrUtil.desensitized("苏D40000", DesensitizedUtils.DesensitizedType.CAR_LICENSE)) = "苏D4***0"
+	 * </pre>
+	 *
+	 * @param str              字符串
+	 * @param desensitizedType 脱敏类型;可以脱敏：用户id、中文名、身份证号、座机号、手机号、地址、电子邮件、密码
+	 * @return 脱敏之后的字符串
+	 * @author dazer and neusoft and qiaomu
+	 * @see DesensitizedUtil 如果需要自定义，脱敏规则，请使用该工具类；
+	 * @since 5.6.2
+	 */
+	public static String desensitized(CharSequence str, DesensitizedUtil.DesensitizedType desensitizedType) {
+		return DesensitizedUtil.desensitized(str, desensitizedType);
 	}
 
 	/**
@@ -4254,4 +4308,5 @@ public class CharSequenceUtil {
 		}
 		return strBuilder.toString();
 	}
+
 }
