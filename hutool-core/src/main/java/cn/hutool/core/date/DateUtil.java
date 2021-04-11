@@ -41,8 +41,8 @@ public class DateUtil extends CalendarUtil {
 	 */
 	private final static String[] wtb = { //
 			"sun", "mon", "tue", "wed", "thu", "fri", "sat", // 星期
-			"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", //
-			"gmt", "ut", "utc", "est", "edt", "cst", "cdt", "mst", "mdt", "pst", "pdt"//
+			"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", // 月份
+			"gmt", "ut", "utc", "est", "edt", "cst", "cdt", "mst", "mdt", "pst", "pdt"// 时间标准
 	};
 
 	/**
@@ -822,8 +822,12 @@ public class DateUtil extends CalendarUtil {
 			if (length == DatePattern.UTC_PATTERN.length() - 4) {
 				// 格式类似：2018-09-13T05:34:31Z，-4表示减去4个单引号的长度
 				return parse(utcString, DatePattern.UTC_FORMAT);
-			} else if (length == DatePattern.UTC_MS_PATTERN.length() - 4) {
-				// 格式类似：2018-09-13T05:34:31.999Z，-4表示减去4个单引号的长度
+			}
+
+			final int patternLength = DatePattern.UTC_MS_PATTERN.length();
+			// 格式类似：2018-09-13T05:34:31.999Z，-4表示减去4个单引号的长度
+			// -4 ~ -6范围表示匹配毫秒1~3位的情况
+			if (length <= patternLength - 4 && length >= patternLength - 6) {
 				return parse(utcString, DatePattern.UTC_MS_FORMAT);
 			}
 		} else {

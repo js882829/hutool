@@ -3,6 +3,37 @@
 
 -------------------------------------------------------------------------------------------------------------
 
+# 5.6.3 (2021-04-10)
+
+### 新特性
+* 【core   】     修改数字转换的实现，增加按照指定端序转换（pr#1492@Github）
+* 【core   】     修改拆分byte数组时最后一组长度的规则（pr#1494@Github）
+* 【core   】     新增根据日期获取节气（pr#1496@Github）
+* 【core   】     mapToBean()添加对布尔值is前缀的识别（pr#294@Gitee）
+* 【core   】     农历十月十一月改为寒月和冬月（pr#301@Gitee）
+* 【core   】     增加港澳台电话正则（pr#301@Gitee）
+* 【core   】     增加银行卡号脱敏（pr#301@Gitee）
+* 【cache  】     使用LongAddr代替AtomicLong（pr#301@Gitee）
+* 【cache  】     EnumUtil使用LinkedHashMap（pr#304@Gitee）
+* 【crypto 】     SymmetricCrypto支持大量数据加密解密（pr#1497@Gitee）
+* 【http   】     SoapClient增加针对不同协议的头信息（pr#305@Gitee）
+* 【http   】     HttpRequest支持307、308状态码识别（issue#1504@Github）
+* 【core   】     CharUtil.isBlankChar增加\u0000判断（pr#1505@Github）
+* 【extra  】     添加Houbb Pinyin支持（pr#1506@Github）
+* 【core   】     添加LambdaUtil（pr#295@Gitee）
+* 【core   】     添加StrPool和CharPool
+* 【extra  】     CglibUtil增加toBean和fillBean方法
+* 【db     】     增加DriverNamePool
+
+### Bug修复
+* 【core   】     修复Validator.isUrl()传空返回true（issue#I3ETTY@Gitee）
+* 【db     】     修复数据库driver根据url的判断识别错误问题（issue#I3EWBI@Gitee）
+* 【json   】     修复JSONStrFormatter换行多余空行问题（issue#I3FA8B@Gitee）
+* 【core   】     修复UrlPath中的+被转义为空格%20的问题（issue#1501@Github）
+* 【core   】     修复DateUtil.parse方法对UTC时间毫秒少于3位不识别问题（issue#1503@Github）
+
+-------------------------------------------------------------------------------------------------------------
+
 # 5.6.2 (2021-03-28)
 
 ### 新特性
