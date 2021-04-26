@@ -116,7 +116,7 @@ public class DateUtil extends CalendarUtil {
 	 * {@link TemporalAccessor}类型时间转为{@link DateTime}<br>
 	 * 始终根据已有{@link TemporalAccessor} 产生新的{@link DateTime}对象
 	 *
-	 * @param temporalAccessor {@link TemporalAccessor}
+	 * @param temporalAccessor {@link TemporalAccessor},常用子类： {@link LocalDateTime}、 LocalDate
 	 * @return 时间对象
 	 * @since 5.0.0
 	 */
@@ -1884,6 +1884,29 @@ public class DateUtil extends CalendarUtil {
 	}
 
 	/**
+	 * {@code null}安全的日期比较，并只比较指定格式； {@code null}对象排在末尾, 并指定日期格式；
+	 *
+	 *
+	 * @param date1 日期1
+	 * @param date2 日期2
+	 * @param format 日期格式，常用格式见： {@link DatePattern}; 允许为空； date1 date2; eg: yyyy-MM-dd
+	 * @return 比较结果，如果date1 &lt; date2，返回数小于0，date1==date2返回0，date1 &gt; date2 大于0
+	 * @since 5.6.4
+	 * @author dazer
+	 */
+	public static int compare(Date date1, Date date2, String format) {
+		if (format != null) {
+			if (date1 != null) {
+				date1 = parse(format(date1, format), format);
+			}
+			if (date2 != null) {
+				date2 = parse(format(date2, format), format);
+			}
+		}
+		return CompareUtil.compare(date1, date2);
+	}
+
+	/**
 	 * 纳秒转毫秒
 	 *
 	 * @param duration 时长
@@ -1965,7 +1988,7 @@ public class DateUtil extends CalendarUtil {
 	/**
 	 * 获得指定月份的总天数
 	 *
-	 * @param month      年份
+	 * @param month      月份
 	 * @param isLeapYear 是否闰年
 	 * @return 天
 	 * @since 5.4.2

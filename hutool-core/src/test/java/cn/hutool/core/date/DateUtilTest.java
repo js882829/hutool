@@ -699,6 +699,22 @@ public class DateUtilTest {
 	}
 
 	@Test
+	public void compareTest() {
+		Date date1 = DateUtil.parse("2021-04-13 23:59:59.999");
+		Date date2 = DateUtil.parse("2021-04-13 23:59:10");
+
+		Assert.assertEquals(1, DateUtil.compare(date1, date2));
+		Assert.assertEquals(1, DateUtil.compare(date1, date2, DatePattern.NORM_DATETIME_PATTERN));
+		Assert.assertEquals(0, DateUtil.compare(date1, date2, DatePattern.NORM_DATE_PATTERN));
+		Assert.assertEquals(0, DateUtil.compare(date1, date2, DatePattern.NORM_DATETIME_MINUTE_PATTERN));
+
+
+		Date date11 = DateUtil.parse("2021-04-13 23:59:59.999");
+		Date date22 = DateUtil.parse("2021-04-11 23:10:10");
+		Assert.assertEquals(0, DateUtil.compare(date11, date22, DatePattern.NORM_MONTH_PATTERN));
+	}
+
+	@Test
 	public void yearAndQTest() {
 		String yearAndQuarter = DateUtil.yearAndQuarter(DateUtil.parse("2018-12-01"));
 		Assert.assertEquals("20184", yearAndQuarter);
@@ -738,9 +754,16 @@ public class DateUtilTest {
 
 	@Test
 	public void dateTest(){
+		//LocalDateTime ==> date
 		LocalDateTime localDateTime = LocalDateTime.parse("2017-05-06T08:30:00", DateTimeFormatter.ISO_DATE_TIME);
 		DateTime date = DateUtil.date(localDateTime);
 		Assert.assertEquals("2017-05-06 08:30:00", date.toString());
+
+		//LocalDate ==> date
+		LocalDate localDate = localDateTime.toLocalDate();
+		DateTime date2 = DateUtil.date(localDate);
+		Assert.assertEquals("2017-05-06",
+		DateUtil.format(date2, DatePattern.NORM_DATE_PATTERN));
 	}
 
 	@Test
