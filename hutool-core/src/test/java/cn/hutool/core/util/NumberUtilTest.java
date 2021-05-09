@@ -179,12 +179,6 @@ public class NumberUtilTest {
 	}
 
 	@Test
-	public void formatPercentTest() {
-		String str = NumberUtil.formatPercent(0.33543545, 2);
-		Assert.assertEquals("33.54%", str);
-	}
-
-	@Test
 	public void toBigDecimalTest() {
 		double a = 3.14;
 
