@@ -3,6 +3,31 @@
 
 -------------------------------------------------------------------------------------------------------------
 
+# 5.6.6 (2021-05-26)
+
+### 🐣新特性
+* 【cron   】     增加时间轮简单实现
+* 【core   】     BeanUtil.copyToList增加重载（pr#321@Gitee）
+* 【core   】     SyncFinisher增加stop方法（issue#1578@Github）
+* 【cache  】     CacheObj默认方法改为protected（issue#I3RIEI@Gitee）
+* 【core   】     FileUtil.isEmpty不存在时返回true（issue#1582@Github）
+* 【core   】     PhoneUtil增加中国澳门和中国台湾手机号校检方法（pr#331@Gitee）
+* 【db     】     分页查询，自定义sql查询，添加参数（pr#332@Gitee）
+* 【core   】     IdCardUtil.isValidCard增加非空判断
+* 【json   】     JSONObject构造增加SortedMap判断（pr#333@Gitee）
+* 【core   】     Tuple增加部分方法（pr#333@Gitee）
+* 【log    】     增加LogTube支持
+* 【core   】     增加BitStatusUtil（pr#1600@Github）
+
+### 🐞Bug修复
+* 【core   】     修复XmlUtil中omitXmlDeclaration参数无效问题（issue#1581@Github）
+* 【core   】     修复NumberUtil.decimalFormat参数传错的问题（issue#I3SDS3@Gitee）
+* 【json   】     修复JSONArray.put方法不能覆盖值的问题
+* 【poi    】     修复sax方式读取xls无法根据sheet名称获取数据（issue#I3S4NH@Gitee）
+* 【core   】     修复路径中多个~都被替换的问题（pr#1599@Github）
+* 【core   】     修复CRC16构造非public问题（issue#1601@Github）
+
+-------------------------------------------------------------------------------------------------------------
 # 5.6.5 (2021-05-08)
 
 ### 🐣新特性
