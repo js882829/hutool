@@ -9,6 +9,7 @@ import cn.hutool.core.lang.Assert;
 import cn.hutool.core.lang.Editor;
 import cn.hutool.core.lang.Filter;
 import cn.hutool.core.lang.Matcher;
+import cn.hutool.core.map.MapUtil;
 
 import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
@@ -574,21 +575,26 @@ public class ArrayUtil extends PrimitiveArrayUtil {
 	}
 
 	/**
-	 * 过滤<br>
-	 * 过滤过程通过传入的Editor实现来返回需要的元素内容，这个Editor实现可以实现以下功能：
+	 * 编辑数组<br>
+	 * 编辑过程通过传入的Editor实现来返回需要的元素内容，这个Editor实现可以实现以下功能：
 	 *
 	 * <pre>
-	 * 1、过滤出需要的对象，如果返回null表示这个元素对象抛弃
+	 * 1、过滤出需要的对象，如果返回{@code null}表示这个元素对象抛弃
 	 * 2、修改元素对象，返回集合中为修改后的对象
 	 * </pre>
+	 * <p>
 	 *
 	 * @param <T>    数组元素类型
 	 * @param array  数组
-	 * @param editor 编辑器接口
-	 * @return 过滤后的数组
+	 * @param editor 编辑器接口，{@code null}返回原集合
+	 * @since 5.3.3
 	 */
-	public static <T> T[] filter(T[] array, Editor<T> editor) {
-		ArrayList<T> list = new ArrayList<>(array.length);
+	public static <T> T[] edit(T[] array, Editor<T> editor) {
+		if (null == editor) {
+			return array;
+		}
+
+		final ArrayList<T> list = new ArrayList<>(array.length);
 		T modified;
 		for (T t : array) {
 			modified = editor.edit(t);
@@ -596,28 +602,8 @@ public class ArrayUtil extends PrimitiveArrayUtil {
 				list.add(modified);
 			}
 		}
-		return list.toArray(Arrays.copyOf(array, list.size()));
-	}
-
-	/**
-	 * 编辑数组<br>
-	 * 编辑过程通过传入的Editor实现来返回需要的元素内容，这个Editor实现可以实现以下功能：
-	 *
-	 * <pre>
-	 * 1、修改元素对象，返回集合中为修改后的对象
-	 * </pre>
-	 * <p>
-	 * 注意：此方法会修改原数组！
-	 *
-	 * @param <T>    数组元素类型
-	 * @param array  数组
-	 * @param editor 编辑器接口
-	 * @since 5.3.3
-	 */
-	public static <T> void edit(T[] array, Editor<T> editor) {
-		for (int i = 0; i < array.length; i++) {
-			array[i] = editor.edit(array[i]);
-		}
+		final T[] result = newArray(array.getClass().getComponentType(), list.size());
+		return list.toArray(result);
 	}
 
 	/**
@@ -630,23 +616,15 @@ public class ArrayUtil extends PrimitiveArrayUtil {
 	 *
 	 * @param <T>    数组元素类型
 	 * @param array  数组
-	 * @param filter 过滤器接口，用于定义过滤规则，null表示不过滤，返回原数组
+	 * @param filter 过滤器接口，用于定义过滤规则，{@code null}返回原集合
 	 * @return 过滤后的数组
 	 * @since 3.2.1
 	 */
 	public static <T> T[] filter(T[] array, Filter<T> filter) {
-		if (null == filter) {
+		if(null == array || null == filter){
 			return array;
 		}
-
-		final ArrayList<T> list = new ArrayList<>(array.length);
-		for (T t : array) {
-			if (filter.accept(t)) {
-				list.add(t);
-			}
-		}
-		final T[] result = newArray(array.getClass().getComponentType(), list.size());
-		return list.toArray(result);
+		return edit(array, t -> filter.accept(t) ? t : null);
 	}
 
 	/**
@@ -658,7 +636,7 @@ public class ArrayUtil extends PrimitiveArrayUtil {
 	 * @since 3.2.2
 	 */
 	public static <T> T[] removeNull(T[] array) {
-		return filter(array, (Editor<T>) t -> {
+		return edit(array, t -> {
 			// 返回null便不加入集合
 			return t;
 		});
@@ -696,7 +674,7 @@ public class ArrayUtil extends PrimitiveArrayUtil {
 	 * @since 3.2.1
 	 */
 	public static String[] nullToEmpty(String[] array) {
-		return filter(array, (Editor<String>) t -> null == t ? StrUtil.EMPTY : t);
+		return edit(array, t -> null == t ? StrUtil.EMPTY : t);
 	}
 
 	/**
@@ -721,7 +699,7 @@ public class ArrayUtil extends PrimitiveArrayUtil {
 		}
 
 		final int size = Math.min(keys.length, values.length);
-		final Map<K, V> map = CollUtil.newHashMap(size, isOrder);
+		final Map<K, V> map = MapUtil.newHashMap(size, isOrder);
 		for (int i = 0; i < size; i++) {
 			map.put(keys[i], values[i]);
 		}

@@ -1008,6 +1008,7 @@ public class NumberUtil {
 	 * @return 格式化后的值
 	 */
 	public static String decimalFormat(String pattern, double value) {
+		Assert.isTrue(isValid(value), "value is NaN or Infinite!");
 		return new DecimalFormat(pattern).format(value);
 	}
 
@@ -1078,6 +1079,9 @@ public class NumberUtil {
 	 * @since 5.6.5
 	 */
 	public static String decimalFormat(String pattern, Object value, RoundingMode roundingMode) {
+		if(value instanceof Number){
+			Assert.isTrue(isValidNumber((Number) value), "value is NaN or Infinite!");
+		}
 		final DecimalFormat decimalFormat = new DecimalFormat(pattern);
 		if(null != roundingMode){
 			decimalFormat.setRoundingMode(roundingMode);
@@ -2197,38 +2201,6 @@ public class NumberUtil {
 	}
 
 	/**
-	 * 是否空白符<br>
-	 * 空白符包括空格、制表符、全角空格和不间断空格<br>
-	 *
-	 * @param c 字符
-	 * @return 是否空白符
-	 * @see Character#isWhitespace(int)
-	 * @see Character#isSpaceChar(int)
-	 * @since 3.0.6
-	 * @deprecated 请使用{@link CharUtil#isBlankChar(char)}
-	 */
-	@Deprecated
-	public static boolean isBlankChar(char c) {
-		return isBlankChar((int) c);
-	}
-
-	/**
-	 * 是否空白符<br>
-	 * 空白符包括空格、制表符、全角空格和不间断空格<br>
-	 *
-	 * @param c 字符
-	 * @return 是否空白符
-	 * @see Character#isWhitespace(int)
-	 * @see Character#isSpaceChar(int)
-	 * @since 3.0.6
-	 * @deprecated 请使用{@link CharUtil#isBlankChar(int)}
-	 */
-	@Deprecated
-	public static boolean isBlankChar(int c) {
-		return Character.isWhitespace(c) || Character.isSpaceChar(c) || c == '\ufeff' || c == '\u202a';
-	}
-
-	/**
 	 * 计算等份个数
 	 *
 	 * @param total 总数
@@ -2658,6 +2630,30 @@ public class NumberUtil {
 			return (false == ((Float) number).isInfinite()) && (false == ((Float) number).isNaN());
 		}
 		return true;
+	}
+
+	/**
+	 * 检查是否为有效的数字<br>
+	 * 检查double否为无限大，或者Not a Number（NaN）<br>
+	 *
+	 * @param number 被检查double
+	 * @return 检查结果
+	 * @since 5.7.0
+	 */
+	public static boolean isValid(double number) {
+		return false == (Double.isNaN(number) || Double.isInfinite(number));
+	}
+
+	/**
+	 * 检查是否为有效的数字<br>
+	 * 检查double否为无限大，或者Not a Number（NaN）<br>
+	 *
+	 * @param number 被检查double
+	 * @return 检查结果
+	 * @since 5.7.0
+	 */
+	public static boolean isValid(float number) {
+		return false == (Float.isNaN(number) || Float.isInfinite(number));
 	}
 
 	// ------------------------------------------------------------------------------------------- Private method start
