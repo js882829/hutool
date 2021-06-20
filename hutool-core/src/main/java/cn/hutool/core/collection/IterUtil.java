@@ -5,10 +5,9 @@ import cn.hutool.core.lang.Editor;
 import cn.hutool.core.lang.Filter;
 import cn.hutool.core.lang.func.Func1;
 import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.text.StrJoiner;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReflectUtil;
-import cn.hutool.core.util.StrUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,6 +28,18 @@ import java.util.function.Function;
  * @since 3.1.0
  */
 public class IterUtil {
+
+	/**
+	 * 获取{@link Iterator}
+	 *
+	 * @param iterable {@link Iterable}
+	 * @param <T>      元素类型
+	 * @return 当iterable为null返回{@code null}，否则返回对应的{@link Iterator}
+	 * @since 5.7.2
+	 */
+	public static <T> Iterator<T> getIter(Iterable<T> iterable) {
+		return null == iterable ? null : iterable.iterator();
+	}
 
 	/**
 	 * Iterable是否为空
@@ -199,7 +210,7 @@ public class IterUtil {
 	 * @since 4.6.2
 	 */
 	public static <V> List<Object> fieldValueList(Iterable<V> iterable, String fieldName) {
-		return fieldValueList(null == iterable ? null : iterable.iterator(), fieldName);
+		return fieldValueList(getIter(iterable), fieldName);
 	}
 
 	/**
@@ -233,7 +244,7 @@ public class IterUtil {
 	 * @return 连接后的字符串
 	 */
 	public static <T> String join(Iterator<T> iterator, CharSequence conjunction) {
-		return join(iterator, conjunction, null, null);
+		return StrJoiner.of(conjunction).append(iterator).toString();
 	}
 
 	/**
@@ -249,17 +260,11 @@ public class IterUtil {
 	 * @since 4.0.10
 	 */
 	public static <T> String join(Iterator<T> iterator, CharSequence conjunction, String prefix, String suffix) {
-		return join(iterator, conjunction, (item) -> {
-			if (ArrayUtil.isArray(item)) {
-				return ArrayUtil.join(ArrayUtil.wrap(item), conjunction, prefix, suffix);
-			} else if (item instanceof Iterable<?>) {
-				return CollUtil.join((Iterable<?>) item, conjunction, prefix, suffix);
-			} else if (item instanceof Iterator<?>) {
-				return join((Iterator<?>) item, conjunction, prefix, suffix);
-			} else {
-				return StrUtil.wrap(String.valueOf(item), prefix, suffix);
-			}
-		});
+		return StrJoiner.of(conjunction, prefix, suffix)
+				// 每个元素都添加前后缀
+				.setWrapElement(true)
+				.append(iterator)
+				.toString();
 	}
 
 	/**
@@ -278,20 +283,7 @@ public class IterUtil {
 			return null;
 		}
 
-		final StringBuilder sb = new StringBuilder();
-		boolean isFirst = true;
-		T item;
-		while (iterator.hasNext()) {
-			if (isFirst) {
-				isFirst = false;
-			} else {
-				sb.append(conjunction);
-			}
-
-			item = iterator.next();
-			sb.append(func.apply(item));
-		}
-		return sb.toString();
+		return StrJoiner.of(conjunction).append(iterator, func).toString();
 	}
 
 	/**
@@ -572,6 +564,21 @@ public class IterUtil {
 	}
 
 	/**
+	 * 获取集合的第一个非空元素
+	 *
+	 * @param <T>      集合元素类型
+	 * @param iterable {@link Iterable}
+	 * @return 第一个元素
+	 * @since 5.7.2
+	 */
+	public static <T> T getFirstNoneNull(Iterable<T> iterable) {
+		if (null == iterable) {
+			return null;
+		}
+		return getFirstNoneNull(iterable.iterator());
+	}
+
+	/**
 	 * 获取集合的第一个元素
 	 *
 	 * @param <T>      集合元素类型
@@ -581,6 +588,26 @@ public class IterUtil {
 	public static <T> T getFirst(Iterator<T> iterator) {
 		if (null != iterator && iterator.hasNext()) {
 			return iterator.next();
+		}
+		return null;
+	}
+
+	/**
+	 * 获取集合的第一个非空元素
+	 *
+	 * @param <T>      集合元素类型
+	 * @param iterator {@link Iterator}
+	 * @return 第一个非空元素，null表示未找到
+	 * @since 5.7.2
+	 */
+	public static <T> T getFirstNoneNull(Iterator<T> iterator) {
+		if (null != iterator) {
+			while(iterator.hasNext()){
+				final T next = iterator.next();
+				if(null != next){
+					return next;
+				}
+			}
 		}
 		return null;
 	}

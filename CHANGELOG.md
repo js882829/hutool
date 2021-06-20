@@ -3,7 +3,29 @@
 
 -------------------------------------------------------------------------------------------------------------
 
-# 5.7.1 (2021-06-17)
+# 5.7.2 (2021-06-20)
+
+### 🐣新特性
+* 【core   】     增加UserPassAuthenticator
+* 【db     】     获取分组数据源时，移除公共属性项
+* 【core   】     增加StrJoiner
+* 【core   】     增加TreeBuilder
+* 【core   】     IterUtil增加getFirstNonNull方法
+* 【core   】     NumberUtil判空改为isBlank（issue#1664@Github）
+* 【jwt    】     增加JWTValidator、RegisteredPayload
+* 【db     】     增加Phoenix方言（issue#1656@Github）
+
+### 🐞Bug修复
+* 【db     】     修复Oracle下别名错误造成的SQL语法啊错误（issue#I3VTQW@Gitee）
+* 【core   】     修复ConcurrencyTester重复使用时开始测试未清空之前任务的问题（issue#I3VSDO@Gitee）
+* 【poi    】     修复使用BigWriter写出，ExcelWriter修改单元格值失败的问题（issue#I3VSDO@Gitee）
+* 【jwt    】     修复Hmac算法下生成签名是hex的问题（issue#I3W6IP@Gitee）
+* 【core   】     修复TreeUtil.build中deep失效问题（issue#1661@Github）
+* 【json   】     修复XmlUtil.xmlToBean判断问题（issue#1663@Github）
+
+-------------------------------------------------------------------------------------------------------------
+
+# 5.7.1 (2021-06-16)
 
 ### 🐣新特性
 * 【db     】     NamedSql支持in操作(issue#1652@Github)

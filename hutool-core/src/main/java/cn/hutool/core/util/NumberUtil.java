@@ -134,11 +134,11 @@ public class NumberUtil {
 		}
 
 		Number value = values[0];
-		BigDecimal result = null == value ? BigDecimal.ZERO : new BigDecimal(value.toString());
+		BigDecimal result = toBigDecimal(value);
 		for (int i = 1; i < values.length; i++) {
 			value = values[i];
 			if (null != value) {
-				result = result.add(new BigDecimal(value.toString()));
+				result = result.add(toBigDecimal(value));
 			}
 		}
 		return result;
@@ -158,11 +158,11 @@ public class NumberUtil {
 		}
 
 		String value = values[0];
-		BigDecimal result = null == value ? BigDecimal.ZERO : new BigDecimal(value);
+		BigDecimal result = toBigDecimal(value);
 		for (int i = 1; i < values.length; i++) {
 			value = values[i];
-			if (null != value) {
-				result = result.add(new BigDecimal(value));
+			if (StrUtil.isNotBlank(value)) {
+				result = result.add(toBigDecimal(value));
 			}
 		}
 		return result;
@@ -182,7 +182,7 @@ public class NumberUtil {
 		}
 
 		BigDecimal value = values[0];
-		BigDecimal result = null == value ? BigDecimal.ZERO : value;
+		BigDecimal result = toBigDecimal(value);
 		for (int i = 1; i < values.length; i++) {
 			value = values[i];
 			if (null != value) {
@@ -274,11 +274,11 @@ public class NumberUtil {
 		}
 
 		Number value = values[0];
-		BigDecimal result = null == value ? BigDecimal.ZERO : new BigDecimal(value.toString());
+		BigDecimal result = toBigDecimal(value);
 		for (int i = 1; i < values.length; i++) {
 			value = values[i];
 			if (null != value) {
-				result = result.subtract(new BigDecimal(value.toString()));
+				result = result.subtract(toBigDecimal(value));
 			}
 		}
 		return result;
@@ -298,11 +298,11 @@ public class NumberUtil {
 		}
 
 		String value = values[0];
-		BigDecimal result = null == value ? BigDecimal.ZERO : new BigDecimal(value);
+		BigDecimal result = toBigDecimal(value);
 		for (int i = 1; i < values.length; i++) {
 			value = values[i];
-			if (null != value) {
-				result = result.subtract(new BigDecimal(value));
+			if (StrUtil.isNotBlank(value)) {
+				result = result.subtract(toBigDecimal(value));
 			}
 		}
 		return result;
@@ -322,7 +322,7 @@ public class NumberUtil {
 		}
 
 		BigDecimal value = values[0];
-		BigDecimal result = null == value ? BigDecimal.ZERO : value;
+		BigDecimal result = toBigDecimal(value);
 		for (int i = 1; i < values.length; i++) {
 			value = values[i];
 			if (null != value) {
@@ -729,7 +729,7 @@ public class NumberUtil {
 	 * @return 两个参数的商
 	 */
 	public static BigDecimal div(String v1, String v2, int scale, RoundingMode roundingMode) {
-		return div(new BigDecimal(v1), new BigDecimal(v2), scale, roundingMode);
+		return div(toBigDecimal(v1), toBigDecimal(v2), scale, roundingMode);
 	}
 
 	/**
