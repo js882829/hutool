@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.TimeZone;
 
@@ -70,6 +69,30 @@ public class DateUtilTest {
 		Assert.assertEquals("2017-03-01 00:00:00", formatDateTime);
 		String formatTime = DateUtil.formatTime(date);
 		Assert.assertEquals("00:00:00", formatTime);
+	}
+
+	@Test
+	public void formatAndParseCustomTest() {
+		String dateStr = "2017-03-01";
+		Date date = DateUtil.parse(dateStr);
+
+		String format = DateUtil.format(date, "#sss");
+		Assert.assertEquals("1488297600", format);
+
+		final DateTime parse = DateUtil.parse(format, "#sss");
+		Assert.assertEquals(date, parse);
+	}
+
+	@Test
+	public void formatAndParseCustomTest2() {
+		String dateStr = "2017-03-01";
+		Date date = DateUtil.parse(dateStr);
+
+		String format = DateUtil.format(date, "#SSS");
+		Assert.assertEquals("1488297600000", format);
+
+		final DateTime parse = DateUtil.parse(format, "#SSS");
+		Assert.assertEquals(date, parse);
 	}
 
 	@Test
@@ -658,47 +681,6 @@ public class DateUtilTest {
 	}
 
 	@Test
-	public void rangeTest() {
-		DateTime start = DateUtil.parse("2017-01-01");
-		DateTime end = DateUtil.parse("2017-01-03");
-
-		// 测试包含开始和结束情况下步进为1的情况
-		DateRange range = DateUtil.range(start, end, DateField.DAY_OF_YEAR);
-		Assert.assertEquals(range.next(), DateUtil.parse("2017-01-01"));
-		Assert.assertEquals(range.next(), DateUtil.parse("2017-01-02"));
-		Assert.assertEquals(range.next(), DateUtil.parse("2017-01-03"));
-		try {
-			range.next();
-			Assert.fail("已超过边界，下一个元素不应该存在！");
-		} catch (NoSuchElementException ignored) {
-		}
-
-		// 测试多步进的情况
-		range = new DateRange(start, end, DateField.DAY_OF_YEAR, 2);
-		Assert.assertEquals(range.next(), DateUtil.parse("2017-01-01"));
-		Assert.assertEquals(range.next(), DateUtil.parse("2017-01-03"));
-
-		// 测试不包含开始结束时间的情况
-		range = new DateRange(start, end, DateField.DAY_OF_YEAR, 1, false, false);
-		Assert.assertEquals(range.next(), DateUtil.parse("2017-01-02"));
-		try {
-			range.next();
-			Assert.fail("不包含结束时间情况下，下一个元素不应该存在！");
-		} catch (NoSuchElementException ignored) {
-		}
-	}
-
-	@Test
-	public void rangeToListTest() {
-		DateTime start = DateUtil.parse("2017-01-01");
-		DateTime end = DateUtil.parse("2017-01-31");
-
-		List<DateTime> rangeToList = DateUtil.rangeToList(start, end, DateField.DAY_OF_YEAR);
-		Assert.assertEquals(rangeToList.get(0), DateUtil.parse("2017-01-01"));
-		Assert.assertEquals(rangeToList.get(1), DateUtil.parse("2017-01-02"));
-	}
-
-	@Test
 	public void compareTest() {
 		Date date1 = DateUtil.parse("2021-04-13 23:59:59.999");
 		Date date2 = DateUtil.parse("2021-04-13 23:59:10");
@@ -883,6 +865,6 @@ public class DateUtilTest {
 	public void parseNotFitTest(){
 		//https://github.com/looly/hutool/issues/1332
 		// 在日期格式不匹配的时候，测试是否正常报错
-		final DateTime parse = DateUtil.parse("2020-12-23", DatePattern.PURE_DATE_PATTERN);
+		DateUtil.parse("2020-12-23", DatePattern.PURE_DATE_PATTERN);
 	}
 }

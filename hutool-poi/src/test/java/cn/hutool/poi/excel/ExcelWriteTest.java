@@ -41,6 +41,50 @@ public class ExcelWriteTest {
 
 	@Test
 	@Ignore
+	public void testRowOrColumnCellStyle() {
+		List<?> row1 = CollUtil.newArrayList("aaaaa", "bb", "cc", "dd", DateUtil.date(), 3.22676575765);
+		List<?> row2 = CollUtil.newArrayList("aa1", "bb1", "cc1", "dd1", DateUtil.date(), 250.7676);
+		List<?> row3 = CollUtil.newArrayList("aa2", "bb2", "cc2", "dd2", DateUtil.date(), 0.111);
+		List<?> row4 = CollUtil.newArrayList("aa3", "bb3", "cc3", "dd3", DateUtil.date(), 35);
+		List<?> row5 = CollUtil.newArrayList("aa4", "bb4", "cc4", "dd4", DateUtil.date(), 28.00);
+
+		List<List<?>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
+		BigExcelWriter overtimeWriter = ExcelUtil.getBigWriter("d:/test/style_line.xlsx");
+
+		overtimeWriter.write(rows, true);
+
+		CellStyle cellStyle = overtimeWriter.getWorkbook().createCellStyle();
+		StyleUtil.setBorder(cellStyle, BorderStyle.THIN, IndexedColors.BLACK);
+		cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		cellStyle.setFillForegroundColor((short) 13);
+		cellStyle.setDataFormat((short) 22);//时间格式
+		cellStyle.setAlignment(HorizontalAlignment.CENTER);
+		cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+
+		//原设置行、列样式的方法
+//		overtimeWriter.setRowStyle(2,cellStyle);
+//		overtimeWriter.setColumnStyle(1,cellStyle);
+
+		//现增加的设置行、列样式的方法
+		//给第三行加背景色
+		overtimeWriter.setRowStyleIfHasData(2, cellStyle);
+		//给第二列加背景色 从第一行开始加（用于控制有表头时）
+		overtimeWriter.setColumnStyleIfHasData(1, 0, cellStyle);
+
+		CellStyle cellStyle1 = overtimeWriter.getWorkbook().createCellStyle();
+		StyleUtil.setBorder(cellStyle1, BorderStyle.THIN, IndexedColors.BLACK);
+		cellStyle1.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		cellStyle1.setFillForegroundColor((short) 13);
+		cellStyle1.setDataFormat((short) 2);//小数保留两位
+		cellStyle1.setAlignment(HorizontalAlignment.CENTER);
+		cellStyle1.setVerticalAlignment(VerticalAlignment.CENTER);
+		overtimeWriter.setStyle(cellStyle1, 5, 2);//由于第6列是数字 上面应用了日期格式会错乱，这里单独设置下第六列的格式
+
+		overtimeWriter.close();
+	}
+
+	@Test
+	@Ignore
 	public void writeTest2() {
 		List<String> row = CollUtil.newArrayList("姓名", "加班日期", "下班时间", "加班时长", "餐补", "车补次数", "车补", "总计");
 		ExcelWriter overtimeWriter = ExcelUtil.getWriter("e:/excel/single_line.xlsx");
@@ -332,12 +376,46 @@ public class ExcelWriteTest {
 
 		List<Map<Object, Object>> rows = CollUtil.newArrayList(row1, row2);
 		// 通过工具类创建writer
-		String file = "f:/test/test_alias.xls";
+		String file = "d:/test/test_alias.xls";
 		ExcelWriter writer = ExcelUtil.getWriter(file, "test1");
 //		writer.setOnlyAlias(true);
 		// 自定义标题
 		writer.addHeaderAlias("name", "姓名");
 		writer.addHeaderAlias("age", "年龄");
+		// 一次性写出内容，使用默认样式
+		writer.write(rows, true);
+		// 关闭writer，释放内存
+		writer.close();
+	}
+
+	@Test
+	@Ignore
+	public void writeMapOnlyAliasTest3() {
+		Map<Object, Object> row1 = new LinkedHashMap<>();
+		row1.put("name", "张三");
+		row1.put("age", 22);
+		row1.put("isPass", true);
+		row1.put("score", 66.30);
+		row1.put("examDate", DateUtil.date());
+
+		Map<Object, Object> row2 = new LinkedHashMap<>();
+		row2.put("name", "李四");
+//		row2.put("age", 233);
+		row2.put("isPass", false);
+		row2.put("score", 32.30);
+		row2.put("examDate", DateUtil.date());
+
+		List<Map<Object, Object>> rows = CollUtil.newArrayList(row1, row2);
+		// 通过工具类创建writer
+		String file = "d:/test/test_alias.xls";
+		ExcelWriter writer = ExcelUtil.getWriter(file, "test1");
+		writer.setOnlyAlias(true);
+
+		// 自定义标题
+		writer.addHeaderAlias("name", "姓名");
+		writer.addHeaderAlias("age", "年龄");
+		writer.addHeaderAlias("examDate", "考试时间");
+
 		// 一次性写出内容，使用默认样式
 		writer.write(rows, true);
 		// 关闭writer，释放内存
@@ -510,7 +588,7 @@ public class ExcelWriteTest {
 
 	@Test
 	@Ignore
-	public void formatTest(){
+	public void formatTest() {
 		final ExcelWriter writer = ExcelUtil.getWriter("d:/test/formatTest.xlsx");
 		final CellStyle cellStyle = writer.createCellStyle(0, 0);
 		cellStyle.setDataFormat(writer.getWorkbook().createDataFormat().getFormat("yyyy-mm-dd"));
@@ -519,7 +597,7 @@ public class ExcelWriteTest {
 
 	@Test
 	@Ignore
-	public void writeNumberFormatTest(){
+	public void writeNumberFormatTest() {
 		final ExcelWriter writer = ExcelUtil.getWriter("d:/test/formatTest.xlsx");
 		writer.disableDefaultStyle();
 		writer.writeRow(ListUtil.toList(51.33333333, 90.111111111));
@@ -531,11 +609,11 @@ public class ExcelWriteTest {
 	@Test
 	@Ignore
 	public void writeSecHeadRowTest() {
-		List<?> row1 = CollUtil.newArrayList(1,"aa", "bb", "cc", "dd", "ee");
-		List<?> row2 = CollUtil.newArrayList(2,"aa1", "bb1", "cc1", "dd1", "ee1");
-		List<?> row3 = CollUtil.newArrayList(3,"aa2", "bb2", "cc2", "dd2", "ee2");
-		List<?> row4 = CollUtil.newArrayList(4,"aa3", "bb3", "cc3", "dd3", "ee3");
-		List<?> row5 = CollUtil.newArrayList(5,"aa4", "bb4", "cc4", "dd4", "ee4");
+		List<?> row1 = CollUtil.newArrayList(1, "aa", "bb", "cc", "dd", "ee");
+		List<?> row2 = CollUtil.newArrayList(2, "aa1", "bb1", "cc1", "dd1", "ee1");
+		List<?> row3 = CollUtil.newArrayList(3, "aa2", "bb2", "cc2", "dd2", "ee2");
+		List<?> row4 = CollUtil.newArrayList(4, "aa3", "bb3", "cc3", "dd3", "ee3");
+		List<?> row5 = CollUtil.newArrayList(5, "aa4", "bb4", "cc4", "dd4", "ee4");
 
 		List<List<?>> rows = CollUtil.newArrayList(row1, row2, row3, row4, row5);
 
@@ -552,21 +630,21 @@ public class ExcelWriteTest {
 		font.setFontHeightInPoints((short) 15);
 		font.setFontName("Arial");
 		//设置边框样式
-		StyleUtil.setBorder(cellStyle,BorderStyle.THICK,IndexedColors.RED);
+		StyleUtil.setBorder(cellStyle, BorderStyle.THICK, IndexedColors.RED);
 		cellStyle.setFont(font);
 
 		// 合并单元格后的标题行，使用设置好的样式
-		writer.merge(0,1,0,row1.size() - 1, "标题XXXXXXXX",cellStyle);
+		writer.merge(0, 1, 0, row1.size() - 1, "标题XXXXXXXX", cellStyle);
 		Console.log(writer.getCurrentRow());
 
 		//设置复杂表头
-		writer.merge(2,3,0,0,"序号",true);
-		writer.merge(2,2,1,2,"AABB",true);
-		writer.merge(2,3,3,3,"CCCC",true);
-		writer.merge(2,2,4,5,"DDEE",true);
+		writer.merge(2, 3, 0, 0, "序号", true);
+		writer.merge(2, 2, 1, 2, "AABB", true);
+		writer.merge(2, 3, 3, 3, "CCCC", true);
+		writer.merge(2, 2, 4, 5, "DDEE", true);
 		writer.setCurrentRow(3);
 
-		List<String> sechead = CollUtil.newArrayList("AA","BB","DD","EE");
+		List<String> sechead = CollUtil.newArrayList("AA", "BB", "DD", "EE");
 		writer.writeSecHeadRow(sechead);
 		// 一次性写出内容，使用默认样式
 		writer.write(rows);
@@ -580,7 +658,7 @@ public class ExcelWriteTest {
 	 */
 	@Test
 	@Ignore
-	public void editTest(){
+	public void editTest() {
 		// 生成文件
 		File file = new File("d:/test/100_.xlsx");
 		FileUtil.del(file);

@@ -3,6 +3,35 @@
 
 -------------------------------------------------------------------------------------------------------------
 
+# 5.7.3 (2021-06-29)
+
+### 🐣新特性
+* 【core   】     增加Convert.toSet方法（issue#I3XFG2@Gitee）
+* 【core   】     CsvWriter增加writeBeans方法（pr#345@Gitee）
+* 【core   】     新增JAXBUtil（pr#346@Gitee）
+* 【poi    】     ExcelWriter新增setColumnStyleIfHasData和setRowStyleIfHasData（pr#347@Gitee）
+* 【json   】     用户自定义日期时间格式时，解析也读取此格式
+* 【core   】     增加可自定义日期格式GlobalCustomFormat
+* 【jwt    】     JWT修改默认有序，并规定payload日期格式为秒数
+* 【json   】     增加JSONWriter
+* 【core   】     IdUtil增加getWorkerId和getDataCenterId（issueI3Y5NI@Gitee）
+* 【core   】     JWTValidator增加leeway重载
+* 【core   】     增加RegexPool（issue#I3W9ZF@gitee）
+
+### 🐞Bug修复
+* 【json   】     修复XML转义字符的问题（issue#I3XH09@Gitee）
+* 【core   】     修复FormatCache中循环引用异常（pr#1673@Github）
+* 【core   】     修复IdcardUtil.getIdcardInfo.getProvinceCode获取为汉字的问题（issue#I3XP4Q@Gitee）
+* 【core   】     修复CollUtil.subtract使用非标准Set等空指针问题（issue#I3XN1Z@Gitee）
+* 【core   】     修复SqlFormatter部分SQL空指针问题（issue#I3XS44@Gitee）
+* 【core   】     修复DateRange计算问题（issue#I3Y1US@Gitee）
+* 【core   】     修复BeanCopier中setFieldNameEditor失效问题（pr#349@Gitee）
+* 【core   】     修复ArrayUtil.indexOfSub查找bug（issue#1683@Github）
+* 【core   】     修复Node的权重比较空指针问题（issue#1681@Github）
+* 【core   】     修复UrlQuery传入无参数路径解析问题（issue#1688@Github）
+
+-------------------------------------------------------------------------------------------------------------
+
 # 5.7.2 (2021-06-20)
 
 ### 🐣新特性
