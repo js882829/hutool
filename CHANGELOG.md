@@ -3,6 +3,30 @@
 
 -------------------------------------------------------------------------------------------------------------
 
+# 5.7.4 (2021-07-10)
+
+### 🐣新特性
+* 【crypto 】     SmUtil.sm4统一返回类型（issue#I3YKD4@Gitee）
+* 【core   】     修改MapUtil.get传入null返回默认值而非null（issue#I3YKBC@Gitee）
+* 【core   】     HexUtil增加hexToLong、hexToInt（issue#I3YQEV@Gitee）
+* 【core   】     CsvWriter增加writer.write(csvData)的方法重载（pr#353@Gitee）
+* 【core   】     新增AbsCollValueMap（issue#I3YXF0@Gitee）
+* 【crypto 】     HOTP缓存改为8位，新增方法（pr#356@Gitee）
+* 【setting】     Props增加toProperties方法（issue#1701@Github）
+* 【http   】     UserAgent增加getOsVersion方法（issue#I3YZUQ@Gitee）
+* 【jwt    】     JWT增加validate方法（issue#I3YDM4@Gitee）
+* 【core   】     CscReader支持指定读取开始行号和结束行号（issue#I3ZMZL@Gitee）
+
+### 🐞Bug修复
+* 【core   】     修复RadixUtil.decode非static问题（issue#I3YPEH@Gitee）
+* 【core   】     修复EqualsBuilder数组判断问题（pr#1694@Github）
+* 【setting】     修复Props中Charset对象无法序列化的问题（pr#1694@Github）
+* 【db     】     修复PageResult首页判断逻辑问题（issue#1699@Github）
+* 【core   】     修复IdcardUtil可能数组越界问题（pr#1702@Github）
+* 【core   】     修复FastByteArrayOutputStream索引越界问题（issue#I402ZP@Github）
+
+-------------------------------------------------------------------------------------------------------------
+
 # 5.7.3 (2021-06-29)
 
 ### 🐣新特性
