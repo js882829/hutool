@@ -13,14 +13,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.TimeZone;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Calendar;
+import java.util.LinkedHashSet;
+import java.util.GregorianCalendar;
 
 /**
  * 时间工具单元测试<br>
@@ -120,6 +121,32 @@ public class DateUtilTest {
 		Date date2 = DateUtil.parse(dateStr2);
 		final DateTime dateTime = DateUtil.truncate(date2, DateField.MINUTE);
 		Assert.assertEquals("2020-02-29 12:59:00", dateTime.toString());
+	}
+
+	@Test
+	public void ceilingMinuteTest(){
+		String dateStr2 = "2020-02-29 12:59:34";
+		Date date2 = DateUtil.parse(dateStr2);
+
+
+		DateTime dateTime = DateUtil.ceiling(date2, DateField.MINUTE);
+		Assert.assertEquals("2020-02-29 12:59:59.999", dateTime.toString(DatePattern.NORM_DATETIME_MS_PATTERN));
+
+		dateTime = DateUtil.ceiling(date2, DateField.MINUTE, true);
+		Assert.assertEquals("2020-02-29 12:59:59.000", dateTime.toString(DatePattern.NORM_DATETIME_MS_PATTERN));
+	}
+
+	@Test
+	public void ceilingDayTest(){
+		String dateStr2 = "2020-02-29 12:59:34";
+		Date date2 = DateUtil.parse(dateStr2);
+
+
+		DateTime dateTime = DateUtil.ceiling(date2, DateField.DAY_OF_MONTH);
+		Assert.assertEquals("2020-02-29 23:59:59.999", dateTime.toString(DatePattern.NORM_DATETIME_MS_PATTERN));
+
+		dateTime = DateUtil.ceiling(date2, DateField.DAY_OF_MONTH, true);
+		Assert.assertEquals("2020-02-29 23:59:59.000", dateTime.toString(DatePattern.NORM_DATETIME_MS_PATTERN));
 	}
 
 	@Test
@@ -866,5 +893,26 @@ public class DateUtilTest {
 		//https://github.com/looly/hutool/issues/1332
 		// 在日期格式不匹配的时候，测试是否正常报错
 		DateUtil.parse("2020-12-23", DatePattern.PURE_DATE_PATTERN);
+	}
+
+	@Test
+	public void formatTest(){
+		Calendar calendar = new GregorianCalendar();
+		calendar.set(2021, Calendar.JULY, 14, 23, 59, 59);
+		Date date = new DateTime(calendar);
+
+		Assert.assertEquals("2021-07-14 23:59:59", DateUtil.format(date, DatePattern.NORM_DATETIME_FORMATTER));
+		Assert.assertEquals("2021-07-14 23:59:59", DateUtil.format(date, DatePattern.NORM_DATETIME_FORMAT));
+		Assert.assertEquals("2021-07-14 23:59:59", DateUtil.format(date, DatePattern.NORM_DATETIME_PATTERN));
+	}
+
+	@Test
+	public void formatNormDateTimeFormatterTest(){
+		String format = DateUtil.format(DateUtil.parse("2021-07-14 10:05:38"), DatePattern.NORM_DATETIME_FORMATTER);
+		Assert.assertEquals("2021-07-14 10:05:38", format);
+
+		format = DateUtil.format(LocalDateTimeUtil.parse("2021-07-14T10:05:38"),
+				"yyyy-MM-dd HH:mm:ss");
+		Assert.assertEquals("2021-07-14 10:05:38", format);
 	}
 }

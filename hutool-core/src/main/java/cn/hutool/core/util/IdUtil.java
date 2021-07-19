@@ -5,6 +5,7 @@ import cn.hutool.core.lang.ObjectId;
 import cn.hutool.core.lang.Singleton;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.lang.UUID;
+import cn.hutool.core.lang.id.NanoId;
 import cn.hutool.core.net.NetUtil;
 
 /**
@@ -223,6 +224,7 @@ public class IdUtil {
 	 *
 	 * @param datacenterId 数据中心ID
 	 * @param maxWorkerId  最大的机器节点ID
+	 * @return ID
 	 * @since 5.7.3
 	 */
 	public static long getWorkerId(long datacenterId, long maxWorkerId) {
@@ -237,5 +239,27 @@ public class IdUtil {
 		 * MAC + PID 的 hashcode 获取16个低位
 		 */
 		return (mpid.toString().hashCode() & 0xffff) % (maxWorkerId + 1);
+	}
+
+	// ------------------------------------------------------------------- NanoId
+	/**
+	 * 获取随机NanoId
+	 *
+	 * @return 随机NanoId
+	 * @since 5.7.5
+	 */
+	public static String nanoId() {
+		return NanoId.randomNanoId();
+	}
+
+	/**
+	 * 获取随机NanoId
+	 *
+	 * @param size ID中的字符数量
+	 * @return 随机NanoId
+	 * @since 5.7.5
+	 */
+	public static String nanoId(int size){
+		return NanoId.randomNanoId(size);
 	}
 }

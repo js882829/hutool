@@ -348,7 +348,7 @@ public class FileUtil extends PathUtil {
 	 * @since 4.0.6
 	 */
 	public static File file(File directory, String... names) {
-		Assert.notNull(directory, "directorydirectory must not be null");
+		Assert.notNull(directory, "directory must not be null");
 		if (ArrayUtil.isEmpty(names)) {
 			return directory;
 		}
@@ -1456,9 +1456,9 @@ public class FileUtil extends PathUtil {
 		}
 
 		List<String> pathList = StrUtil.split(pathToUse, StrUtil.C_SLASH);
+
 		List<String> pathElements = new LinkedList<>();
 		int tops = 0;
-
 		String element;
 		for (int i = pathList.size() - 1; i >= 0; i--) {
 			element = pathList.get(i);
@@ -1475,6 +1475,16 @@ public class FileUtil extends PathUtil {
 						pathElements.add(0, element);
 					}
 				}
+			}
+		}
+
+		// issue#1703@Github
+		if (tops > 0 && StrUtil.isEmpty(prefix)) {
+			// 只有相对路径补充开头的..，绝对路径直接忽略之
+			while (tops-- > 0) {
+				//遍历完节点发现还有上级标注（即开头有一个或多个..），补充之
+				// Normal path element found.
+				pathElements.add(0, StrUtil.DOUBLE_DOT);
 			}
 		}
 
@@ -1545,7 +1555,11 @@ public class FileUtil extends PathUtil {
 	}
 
 	/**
-	 * 返回文件名
+	 * 返回文件名<br>
+	 * <pre>
+	 * "d:/test/aaa" 返回 "aaa"
+	 * "/test/aaa.jpg" 返回 "aaa.jpg"
+	 * </pre>
 	 *
 	 * @param filePath 文件
 	 * @return 文件名
