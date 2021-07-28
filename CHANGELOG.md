@@ -3,7 +3,7 @@
 
 -------------------------------------------------------------------------------------------------------------
 
-# 5.7.6 (2021-07-26)
+# 5.7.6 (2021-07-28)
 
 ### 🐣新特性
 * 【core   】     增加FieldsComparator（pr#374@Gitee）
@@ -17,13 +17,20 @@
 * 【core   】     优化TextSimilarity.longestCommonSubstring性能（issue#I42A6V@Gitee）
 * 【core   】     MultipartRequestInputStream改为使用long以支持大文件（issue#I428AN@Gitee）
 * 【core   】     RobotUtl增加getDelay、getRobot方法（pr#1725@Github）
+* 【json   】     JSON输出支持ignoreNull（issue#1728@Github）
+* 【core   】     DateUtil和LocalDateTimeUtil增加isWeekend方法（issue#I42N5A@Gitee）
 
 ### 🐞Bug修复
 * 【core   】     修复RobotUtil双击右键问题（pr#1721@Github）
 * 【core   】     修复FileTypeUtil判断wps修改过的xlsx误判为jar的问题（pr#380@Gitee）
 * 【core   】     修复Sftp.isDir异常bug（pr#378@Gitee）
 * 【core   】     修复BeanUtil.copyProperties集合元素复制成功，读取失败的问题（issue#I41WKP@Gitee）
-* 【core   】     修复NumberChineseFormatter.chineseToNumber十位数错误（issue#1726@Gitee）
+* 【core   】     修复NumberChineseFormatter.chineseToNumber十位数错误（issue#1726@github）
+* 【poi    】     修复BeanSheetReader.read中字段对象为空导致的报错（issue#1729@Github）
+* 【core   】     修复DateConverter转换java.sql.Date问题（issue#1729@Github）
+* 【extra  】     修复CompressUtil中部分方法非static的问题（pr#385@Gitee）
+* 【core   】     修复ByteUtil转换端序错误问题（pr#384@Gitee）
+* 【core   】     修复UserAgentUtil判断浏览器顺序问题（issue#I42LYW@Gitee）
 
 -------------------------------------------------------------------------------------------------------------
 
