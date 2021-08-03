@@ -3,6 +3,30 @@
 
 -------------------------------------------------------------------------------------------------------------
 
+# 5.7.7 (2021-08-02)
+
+### 🐣新特性
+* 【core   】     增加LookupFactory和MethodHandleUtil（issue#I42TVY@Gitee）
+* 【core   】     改进RegexPool.TEL支持无-号码（pr#387@Gitee）
+* 【core   】     PhoneUtil中新增获取固话号码中区号,以及固话号码中号码的方法（pr#387@Gitee）
+* 【json   】     JSONGetter增加getLocalDateTime方法（pr#387@Gitee）
+* 【core   】     增加JNDIUtil（issue#1727@Github）
+* 【core   】     NetUtil增加getDnsInfo方法（issue#1727@Github）
+* 【core   】     SpringUtil增加unregisterBean方法（pr#388@Gitee）
+* 【core   】     优化TextSimilarity公共子串算法（issue#I42A6V@Gitee）
+* 【core   】     优化DateUtil.parse对UTC附带时区字符串解析（issue#I437AP@Gitee）
+
+### 🐞Bug修复
+* 【jwt    】     修复JWTUtil中几个方法非static的问题（issue#1735@Github）
+* 【core   】     修复SpringUtil无法处理autowired问题（pr#388@Gitee）
+* 【core   】     修复AbsCollValueMap中常量拼写错误（pr#1736@Github）
+* 【core   】     修复FileUtil.del在文件只读情况下无法删除的问题（pr#389@Gitee）
+* 【core   】     修复FileUtil.move在不同分区下失败的问题（pr#390@Gitee）
+* 【core   】     修复FileUtil.copy强制覆盖参数无效问题
+* 【core   】     修复NumberChineseFormatter转换金额多零问题（issue#1739@Github）
+
+-------------------------------------------------------------------------------------------------------------
+
 # 5.7.6 (2021-07-28)
 
 ### 🐣新特性
@@ -16,7 +40,7 @@
 * 【core   】     NumberUtil增加calculate方法
 * 【core   】     优化TextSimilarity.longestCommonSubstring性能（issue#I42A6V@Gitee）
 * 【core   】     MultipartRequestInputStream改为使用long以支持大文件（issue#I428AN@Gitee）
-* 【core   】     RobotUtl增加getDelay、getRobot方法（pr#1725@Github）
+* 【core   】     RobotUtil增加getDelay、getRobot方法（pr#1725@Github）
 * 【json   】     JSON输出支持ignoreNull（issue#1728@Github）
 * 【core   】     DateUtil和LocalDateTimeUtil增加isWeekend方法（issue#I42N5A@Gitee）
 
