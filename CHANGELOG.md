@@ -3,6 +3,26 @@
 
 -------------------------------------------------------------------------------------------------------------
 
+# 5.7.8 (2021-08-11)
+
+### 🐣新特性
+* 【core   】     MapProxy支持return this的setter方法（pr#392@Gitee）
+* 【core   】     BeeDSFactory移除sqlite事务修复代码，新版本BeeCP已修复
+* 【core   】     增加compress包，扩充Zip操作灵活性
+* 【json   】     增加JSONBeanParser
+* 【poi    】     增加CellSetter，可以自定义单元格值写出
+* 【poi    】     CsvReader增加readFromStr（pr#1755@Github）
+* 【socket 】     SocketUtil增加connection方法
+* 【extra  】     JschUtil增加bindPort重载方法（issue#I44UTH@Github）
+* 【core   】     DefaultTrustManager改为继承X509ExtendedTrustManager
+* 【core   】     增加IoCopier
+
+### 🐞Bug修复
+* 【core   】     改进NumberChineseFormatter算法，补充完整单元测试，解决零问题
+* 【core   】     修复Img变换操作图片格式问题（issue#I44JRB@Gitee）
+
+-------------------------------------------------------------------------------------------------------------
+
 # 5.7.7 (2021-08-02)
 
 ### 🐣新特性

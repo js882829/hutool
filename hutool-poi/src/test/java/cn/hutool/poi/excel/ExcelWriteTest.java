@@ -709,4 +709,28 @@ public class ExcelWriteTest {
 		writer.write(list, true);
 		writer.close();
 	}
+
+	@Test
+	@Ignore
+	public void changeHeaderStyleTest(){
+		final ExcelWriter writer = ExcelUtil.getWriter("d:/test/headerStyle.xlsx");
+		writer.writeHeadRow(ListUtil.of("姓名", "性别", "年龄"));
+		final CellStyle headCellStyle = writer.getStyleSet().getHeadCellStyle();
+		headCellStyle.setFillForegroundColor(IndexedColors.YELLOW1.index);
+		headCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+		writer.close();
+	}
+
+	@Test
+	@Ignore
+	public void writeFloatTest(){
+		//issue https://gitee.com/dromara/hutool/issues/I43U9G
+		String path = "d:/test/floatTest.xlsx";
+		FileUtil.del(path);
+
+		final ExcelWriter writer = ExcelUtil.getWriter(path);
+		writer.writeRow(ListUtil.of(22.9f));
+		writer.close();
+	}
 }
