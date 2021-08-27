@@ -899,6 +899,7 @@ public class DateUtil extends CalendarUtil {
 	 * <li>HH时mm分ss秒</li>
 	 * <li>yyyy-MM-dd HH:mm</li>
 	 * <li>yyyy-MM-dd HH:mm:ss.SSS</li>
+	 * <li>yyyy-MM-dd HH:mm:ss.SSSSSS</li>
 	 * <li>yyyyMMddHHmmss</li>
 	 * <li>yyyyMMddHHmmssSSS</li>
 	 * <li>yyyyMMdd</li>
@@ -928,7 +929,7 @@ public class DateUtil extends CalendarUtil {
 				return parse(dateStr, DatePattern.PURE_DATETIME_FORMAT);
 			} else if (length == DatePattern.PURE_DATETIME_MS_PATTERN.length()) {
 				return parse(dateStr, DatePattern.PURE_DATETIME_MS_FORMAT);
-			} else if (length == DatePattern.PURE_DATE_PATTERN.length()) {
+			}else if (length == DatePattern.PURE_DATE_PATTERN.length()) {
 				return parse(dateStr, DatePattern.PURE_DATE_FORMAT);
 			} else if (length == DatePattern.PURE_TIME_PATTERN.length()) {
 				return parse(dateStr, DatePattern.PURE_TIME_FORMAT);
@@ -959,8 +960,14 @@ public class DateUtil extends CalendarUtil {
 					// yyyy-MM-dd HH:mm
 					return parse(dateStr, DatePattern.NORM_DATETIME_MINUTE_FORMAT);
 				case 2:
-					if (StrUtil.contains(dateStr, CharUtil.DOT)) {
-						// yyyy-MM-dd HH:mm:ss.SSS
+					final int indexOfDot = StrUtil.indexOf(dateStr, CharUtil.DOT);
+					if (indexOfDot > 0) {
+						final int length1 = dateStr.length();
+						// yyyy-MM-dd HH:mm:ss.SSS 或者 yyyy-MM-dd HH:mm:ss.SSSSSS
+						if(length1 - indexOfDot > 4) {
+							// 类似yyyy-MM-dd HH:mm:ss.SSSSSS，采取截断操作
+							dateStr = StrUtil.subPre(dateStr, indexOfDot + 4);
+						}
 						return parse(dateStr, DatePattern.NORM_DATETIME_MS_FORMAT);
 					}
 					// yyyy-MM-dd HH:mm:ss

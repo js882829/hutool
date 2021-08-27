@@ -48,6 +48,31 @@ public class CsvReaderTest {
 	}
 
 	@Test
+	public void readAliasMapListTest(){
+		final CsvReadConfig csvReadConfig = CsvReadConfig.defaultConfig();
+		csvReadConfig.addHeaderAlias("姓名", "name");
+
+		final CsvReader reader = CsvUtil.getReader(csvReadConfig);
+		final List<Map<String, String>> result = reader.readMapList(
+				ResourceUtil.getUtf8Reader("test_bean.csv"));
+
+		Assert.assertEquals("张三", result.get(0).get("name"));
+		Assert.assertEquals("男", result.get(0).get("gender"));
+		Assert.assertEquals("无", result.get(0).get("focus"));
+		Assert.assertEquals("33", result.get(0).get("age"));
+
+		Assert.assertEquals("李四", result.get(1).get("name"));
+		Assert.assertEquals("男", result.get(1).get("gender"));
+		Assert.assertEquals("好对象", result.get(1).get("focus"));
+		Assert.assertEquals("23", result.get(1).get("age"));
+
+		Assert.assertEquals("王妹妹", result.get(2).get("name"));
+		Assert.assertEquals("女", result.get(2).get("gender"));
+		Assert.assertEquals("特别关注", result.get(2).get("focus"));
+		Assert.assertEquals("22", result.get(2).get("age"));
+	}
+
+	@Test
 	public void readBeanListTest(){
 		final CsvReader reader = CsvUtil.getReader();
 		final List<TestBean> result = reader.read(
@@ -144,5 +169,18 @@ public class CsvReaderTest {
 		// 文件中第3行数据，对应原始行号是6（从0开始）
 		Assert.assertEquals(6, data.getRow(1).getOriginalLineNumber());
 		Assert.assertEquals("a,s,d,f", CollUtil.join(data.getRow(1), ","));
+	}
+
+	@Test
+	public void customConfigTest(){
+		final CsvReader reader = CsvUtil.getReader(
+				CsvReadConfig.defaultConfig()
+						.setTextDelimiter('\'')
+						.setFieldSeparator(';'));
+		final CsvData csvRows = reader.readFromStr("123;456;'789;0'abc;");
+		final CsvRow row = csvRows.getRow(0);
+		Assert.assertEquals("123", row.get(0));
+		Assert.assertEquals("456", row.get(1));
+		Assert.assertEquals("'789;0'abc", row.get(2));
 	}
 }

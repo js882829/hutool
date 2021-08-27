@@ -3,6 +3,38 @@
 
 -------------------------------------------------------------------------------------------------------------
 
+# 5.7.10 (2021-08-26)
+
+### 🐣新特性
+* 【core   】     增加NamingCase类
+* 【core   】     ListUtil增加page方法重载（pr#1761@Github）
+* 【crypto 】     增加ASN1Util
+* 【core   】     CsvConfig改为泛型形式
+* 【core   】     增加Partition
+* 【http   】     SoapClient.sendForResponse改为public（issue#I466NN@Gitee）
+* 【core   】     XmlUtil增加append重载（issue#I466Q0@Gitee）
+* 【poi    】     增加EscapeStrCellSetter（issue#I466ZZ@Gitee）
+* 【poi    】     ExcelBase增加renameSheet、cloneSheet（issue#I466ZZ@Gitee）
+* 【core   】     ListUtil增加splitAvg方法（pr#397@Gitee）
+* 【poi    】     Excel07SaxReader支持数字类型sheet名称、支持sheetName:名称前缀（issue#I46OMA@Gitee）
+* 【extra  】     Mail增加build方法（issue#I46LGE@Gitee）
+* 【core   】     XmlUtil增加beanToXml重载，支持忽略null
+* 【core   】     添加NullComparator、FuncComparator（issue#I471X7@Gitee）
+* 【core   】     LambdaUtil添加getFieldName（issue#I4750U@Gitee）
+* 【cron   】     Scheduler增加setThreadExecutor（issue#I47A6N@Gitee）
+* 【core   】     CharsetDetector增加detect重载，支持自定义缓存大小（issue#I478E5@Gitee）
+* 【core   】     增加PartitionIter（pr#402@Gitee）
+* 【all    】     增加异常爬栈开关（pr#403@Gitee）
+* 【core   】     优化Combination中C(n,n)的逻辑（pr#1792@Github）
+* 【core   】     Csv读写支持别名（issue#1791@Github）
+
+### 🐞Bug修复
+* 【core   】     修复MapUtil.sort比较器不一致返回原map的问题（issue#I46AQJ@Gitee）
+* 【core   】     修复JSONSupport默认循环引用导致的问题（issue#1779@Github）
+* 【poi    】     修复ExcelUtil.readBySax资源没有释放问题（issue#1789@Github）
+
+-------------------------------------------------------------------------------------------------------------
+
 # 5.7.9 (2021-08-16)
 
 ### 🐣新特性

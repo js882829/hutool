@@ -8,6 +8,7 @@ import cn.hutool.core.lang.Console;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.poi.excel.cell.setters.EscapeStrCellSetter;
 import cn.hutool.poi.excel.style.StyleUtil;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.BuiltinFormats;
@@ -731,6 +732,19 @@ public class ExcelWriteTest {
 
 		final ExcelWriter writer = ExcelUtil.getWriter(path);
 		writer.writeRow(ListUtil.of(22.9f));
+		writer.close();
+	}
+
+	@Test
+	@Ignore
+	public void issueI466ZZTest(){
+		// https://gitee.com/dromara/hutool/issues/I466ZZ
+		// 需要输出S_20000314_x5116_0004
+		// 此处加入一个转义前缀：_x005F
+		List<Object> row = ListUtil.of(new EscapeStrCellSetter("S_20000314_x5116_0004"));
+
+		ExcelWriter writer = ExcelUtil.getWriter("d:/test/_x.xlsx");
+		writer.writeRow(row);
 		writer.close();
 	}
 }
