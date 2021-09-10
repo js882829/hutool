@@ -3,6 +3,30 @@
 
 -------------------------------------------------------------------------------------------------------------
 
+# 5.7.12 (2021-09-09)
+
+### 🐣新特性
+* 【system 】     OshiUtil增加getCurrentProcess方法
+* 【extra  】     SpringUtil增加getApplicationName、publishEvent方法（issue#I485NZ@Gitee）
+* 【core   】     BeanUtil.getProperty增加判空（issue#I488HA@Gitee）
+* 【core   】     OptionalBean弃用（pr#1182@Github）
+* 【setting】     Setting、Props持有URL改为持有Resource（pr#1182@Github）
+* 【json   】     JSONUtil.toJsonStr增加重载，支持JSONConfig（issue#I48H5L@Gitee）
+* 【crypto 】     SymmetricCrypto增加setMode方法，update采用累加模式（pr#1642@Github）
+* 【core   】     ZipReader支持Filter
+* 【all    】     Sftp、Ftp、HttpDownloader增加download重载，支持避免传输文件损坏（pr#407@Gitee）
+* 【crypto 】     AES修改构造的IvParameterSpec为AlgorithmParameterSpec（issue#1814@Gitee）
+* 【crypto 】     增加FPE、ZUC（issue#1814@Gitee）
+
+### 🐞Bug修复
+* 【core   】     修复ListUtil.split方法越界问题（issue#I48Q0P@Gitee）
+* 【core   】     修复QrCode的isTryHarder、isPureBarcode设置无效问题（issue#1815@Github）
+* 【core   】     修复DatePattern.CHINESE_DATE_FORMATTER错误问题（issue#I48ZE3@Gitee）
+* 【core   】     修复ListUtil.split错误问题
+* 【core   】     修复NumberUtil.parseNumber长数字越界问题（issue#1818@Github）
+
+-------------------------------------------------------------------------------------------------------------
+
 # 5.7.11 (2021-08-31)
 
 ### 🐣新特性

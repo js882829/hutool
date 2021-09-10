@@ -40,7 +40,8 @@
 
 <br/>
 <p align="center">
-	<a href="https://qm.qq.com/cgi-bin/qm/qr?k=0wwldaU0E8r-ZzHl_wma33W7420zwXYi&jump_from=webapi"><img src="https://img.shields.io/badge/QQ%E7%BE%A4%E2%91%A4-956375658-orange"/></a>
+	<a href="https://qm.qq.com/cgi-bin/qm/qr?k=jPq9DsjXs7GUWbXRZU3wygSJyMEy4pqr&jump_from=webapi">
+	<img src="https://img.shields.io/badge/QQ%E7%BE%A4%E2%91%A5-610134978-orange"/></a>
 </p>
 
 -------------------------------------------------------------------------------
@@ -121,20 +122,20 @@ Hutool的存在就是为了减少代码搜索成本，避免网络上参差不�
 <dependency>
     <groupId>cn.hutool</groupId>
     <artifactId>hutool-all</artifactId>
-    <version>5.7.11</version>
+    <version>5.7.12</version>
 </dependency>
 ```
 
 ### 🍐Gradle
 ```
-compile 'cn.hutool:hutool-all:5.7.11'
+implementation 'cn.hutool:hutool-all:5.7.12'
 ```
 
 ### 📥下载jar
 
 点击以下链接，下载`hutool-all-X.X.X.jar`即可：
 
-- [Maven中央库](https://repo1.maven.org/maven2/cn/hutool/hutool-all/5.7.11/)
+- [Maven中央库](https://repo1.maven.org/maven2/cn/hutool/hutool-all/5.7.12/)
 
 > 🔔️注意
 > Hutool 5.x支持JDK8+，对Android平台没有测试，不能保证所有工具类或工具方法可用。

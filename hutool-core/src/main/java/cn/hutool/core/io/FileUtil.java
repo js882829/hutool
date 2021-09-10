@@ -99,7 +99,7 @@ public class FileUtil extends PathUtil {
 	}
 
 	/**
-	 * 列出目录文件<br>
+	 * 列出指定路径下的目录和文件<br>
 	 * 给定的绝对路径不能是压缩包中的路径
 	 *
 	 * @param path 目录绝对路径或者相对路径
@@ -1056,7 +1056,7 @@ public class FileUtil extends PathUtil {
 	 * </pre>
 	 *
 	 * @param file        被修改的文件
-	 * @param newName     新的文件名，包括扩展名
+	 * @param newName     新的文件名，可选是否包括扩展名
 	 * @param isRetainExt 是否保留原文件的扩展名，如果保留，则newName不需要加扩展名
 	 * @param isOverride  是否覆盖目标文件
 	 * @return 目标文件
