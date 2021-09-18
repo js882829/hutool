@@ -335,6 +335,10 @@ public final class CsvParser implements Closeable, Serializable {
 
 		field = StrUtil.unWrap(field, textDelimiter);
 		field = StrUtil.replace(field, "" + textDelimiter + textDelimiter, textDelimiter + "");
+		if(this.config.trimField){
+			// issue#I49M0C@Gitee
+			field = StrUtil.trim(field);
+		}
 		currentFields.add(field);
 	}
 

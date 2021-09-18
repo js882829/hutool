@@ -767,7 +767,7 @@ public class CollUtilTest {
 	}
 
 	@Test
-	public void sortComparableTest(){
+	public void sortComparableTest() {
 		final List<String> of = ListUtil.toList("a", "c", "b");
 		final List<String> sort = CollUtil.sort(of, new ComparableComparator<>());
 		Assert.assertEquals("a,b,c", CollUtil.join(sort, ","));

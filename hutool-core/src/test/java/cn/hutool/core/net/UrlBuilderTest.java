@@ -259,4 +259,16 @@ public class UrlBuilderTest {
 
 		Assert.assertEquals(url, urlBuilder.toString());
 	}
+
+	@Test
+	public void fragmentEncodeTest(){
+		// https://gitee.com/dromara/hutool/issues/I49KAL
+		// 见：https://stackoverflow.com/questions/26088849/url-fragment-allowed-characters
+		String url = "https://hutool.cn/docs/#/?id=简介";
+		UrlBuilder urlBuilder = UrlBuilder.ofHttp(url);
+		Assert.assertEquals("https://hutool.cn/docs/#/?id=%E7%AE%80%E4%BB%8B", urlBuilder.toString());
+
+		urlBuilder = UrlBuilder.ofHttp(urlBuilder.toString());
+		Assert.assertEquals(urlBuilder.toString(), urlBuilder.toString());
+	}
 }

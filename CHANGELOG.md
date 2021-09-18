@@ -3,6 +3,29 @@
 
 -------------------------------------------------------------------------------------------------------------
 
+# 5.7.13 (2021-09-17)
+
+### 🐣新特性
+* 【core   】     CsvReadConfig增加trimField选项（issue#I49M0C@Gitee）
+* 【http   】     HttpBase增加clearHeaders方法（issue#I49P23@Gitee）
+* 【core   】     CsvWriter的write和writeBeans参数改为Iterable（issue#I49O4S@Gitee）
+* 【core   】     BitStatusUtil添加来源声明（issue#1824@Github）
+* 【core   】     UrlQuery.build增加重载，支持可选是否转义（issue#I4AIX1@Gitee）
+* 【core   】     ListUtil增加swapTo和swapElement方法（pr#416@Gitee）
+* 【poi    】     ExcelWriter支持Hyperlink（issue#I49QAL@Gitee）
+* 
+### 🐞Bug修复
+* 【core   】     修复FuncKey函数无效问题
+* 【core   】     修复ImgUtil.copyImage读取网络URL后宽高报错问题（issue#1821@Github）
+* 【core   】     修复StrJoiner.append配置丢失问题（issue#I49K1L@Gitee）
+* 【core   】     修复EscapeUtil特殊字符的hex长度不足导致的问题（issue#I49JU8@Gitee）
+* 【core   】     修复UrlBuilder对Fragment部分编码问题（issue#I49KAL@Gitee）
+* 【core   】     修复Enum转换的bug（issue#I49VZB@Gitee）
+* 【json   】     修复JSONUtil.parse对于MapWrapper识别问题
+* 【core   】     修复IdcardUtil.isValidCard判断问题（issue#I4AJ8S@Gitee）
+
+-------------------------------------------------------------------------------------------------------------
+
 # 5.7.12 (2021-09-09)
 
 ### 🐣新特性
